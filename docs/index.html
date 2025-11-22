@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurar Nosh AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 32px 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .logo-icon {
+            width: 72px;
+            height: 72px;
+            background: #4CAF50;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 36px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .logo p {
+            color: #757575;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .step {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .step:last-of-type {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .step-content {
+            margin-left: 40px;
+        }
+
+        .step-content p {
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
+        }
+
+        .btn-outline:hover {
+            background: #E8F5E9;
+        }
+
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-primary:hover {
+            background: #43A047;
+        }
+
+        .btn-primary:disabled {
+            background: #C8E6C9;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .input-group input::placeholder {
+            color: #BDBDBD;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 32px;
+            color: white;
+        }
+
+        .success-message h2 {
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+
+        .success-message p {
+            color: #757575;
+            font-size: 14px;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #9E9E9E;
+            margin-top: 8px;
+        }
+
+        .warning {
+            background: #FFF3E0;
+            border-left: 3px solid #FF9800;
+            padding: 10px 14px;
+            border-radius: 0 8px 8px 0;
+            font-size: 13px;
+            color: #E65100;
+            margin-top: 12px;
+        }
+
+        .steps-container {
+            display: block;
+        }
+
+        .steps-container.hidden {
+            display: none;
+        }
+
+        code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #4CAF50;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 24px 16px;
+            }
+
+            .step-content {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <div class="logo-icon">🍽️</div>
+                <h1>Nosh</h1>
+                <p>Configurar Google AI</p>
+            </div>
+
+            <div class="steps-container" id="stepsContainer">
+                <div class="step">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Abrir Google AI Studio</div>
+                    </div>
+                    <div class="step-content">
+                        <p>Clique no botao abaixo para abrir o Google AI Studio. Faca login com sua conta Google.</p>
+                        <a href="https://aistudio.google.com/apikey" target="_blank" class="btn btn-outline">
+                            Abrir Google AI Studio
+                        </a>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Criar API Key</div>
+                    </div>
+                    <div class="step-content">
+                        <p>Clique em <strong>"Create API Key"</strong> e depois em <strong>"Create API key in new project"</strong>.</p>
+                        <p>Copie a chave gerada (comeca com <code>AIza...</code>).</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Colar a chave</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="input-group">
+                            <label for="apiKey">Sua API Key</label>
+                            <input
+                                type="text"
+                                id="apiKey"
+                                placeholder="AIzaSy..."
+                                autocomplete="off"
+                                spellcheck="false"
+                            >
+                        </div>
+                        <p class="help-text">Sua chave fica salva apenas no seu celular.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Abrir no Nosh</div>
+                    </div>
+                    <div class="step-content">
+                        <button class="btn btn-primary" id="openAppBtn" disabled onclick="openApp()">
+                            Abrir no Nosh
+                        </button>
+                        <div class="warning" id="warningBox" style="display: none;">
+                            Se o app nao abrir, copie a chave e cole manualmente nas configuracoes do Nosh.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">✓</div>
+                <h2>Pronto!</h2>
+                <p>O Nosh deve abrir automaticamente. Se nao abrir, volte ao app e cole a chave manualmente.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const apiKeyInput = document.getElementById('apiKey');
+        const openAppBtn = document.getElementById('openAppBtn');
+        const warningBox = document.getElementById('warningBox');
+        const stepsContainer = document.getElementById('stepsContainer');
+        const successMessage = document.getElementById('successMessage');
+
+        apiKeyInput.addEventListener('input', function() {
+            const value = this.value.trim();
+            const isValid = value.length > 10 && value.startsWith('AIza');
+            openAppBtn.disabled = !isValid;
+        });
+
+        function openApp() {
+            const apiKey = apiKeyInput.value.trim();
+            if (!apiKey) return;
+
+            const deepLink = `noshai://gemini?key=${encodeURIComponent(apiKey)}`;
+            window.location.href = deepLink;
+
+            setTimeout(() => {
+                stepsContainer.classList.add('hidden');
+                successMessage.classList.add('show');
+            }, 500);
+
+            setTimeout(() => {
+                warningBox.style.display = 'block';
+            }, 2000);
+        }
+
+        apiKeyInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !openAppBtn.disabled) {
+                openApp();
+            }
+        });
+    </script>
+</body>
+</html>
